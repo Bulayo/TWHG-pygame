@@ -8,7 +8,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_frect(topleft = (pos))
 
         self.direction = pygame.Vector2(1, 0)
-        self.speed = 75
+        self.speed = 230
         self.collision_sprites = collision_sprites
 
 

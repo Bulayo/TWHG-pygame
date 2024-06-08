@@ -65,9 +65,8 @@ class Game:
             if self.limit_spawn < 1:
                 self.level_setup()
             
-
             # draw
-            self.WINDOW.fill("darkgray")
+            self.WINDOW.fill("#B4B5FE")
             self.all_sprites.draw(self.WINDOW)
 
             pygame.display.flip()
@@ -85,6 +84,9 @@ class Game:
         for x, y, image in self.map.get_layer_by_name("Walls").tiles():
             Collision_Sprite((self.all_sprites, self.collision_sprites), (x * TILE_SIZE, y * TILE_SIZE), image)
 
+        for x, y, image in self.map.get_layer_by_name("Floor").tiles():
+            Sprites((self.all_sprites), (x * TILE_SIZE, y * TILE_SIZE), image)
+
         for x, y, image in self.map.get_layer_by_name("Start").tiles():
             Sprites((self.all_sprites), (x * TILE_SIZE, y * TILE_SIZE), image)
 
@@ -92,16 +94,16 @@ class Game:
             Sprites((self.all_sprites), (x * TILE_SIZE, y * TILE_SIZE), image)
         
         for i, (x, y, image) in enumerate(self.map.get_layer_by_name("Blue_Balls").tiles()):
-            Ball_Sprite((self.all_sprites, self.ball_sprites), (x * TILE_SIZE, y * TILE_SIZE), pygame.transform.scale(image, (10, 10)), i % 2 + 1, "blue",self.collision_sprites)
+            Ball_Sprite((self.all_sprites, self.ball_sprites), (x * TILE_SIZE + 8, y * TILE_SIZE + 8), pygame.transform.scale(image, (32, 32)), i % 2 + 1, "blue",self.collision_sprites)
         
         for i, (x, y, image) in enumerate(self.map.get_layer_by_name("Red_Balls").tiles()):
-            Ball_Sprite((self.all_sprites, self.ball_sprites), (x * TILE_SIZE, y * TILE_SIZE), pygame.transform.scale(image, (10, 10)), i % 2 + 1, "red",self.collision_sprites)
+            Ball_Sprite((self.all_sprites, self.ball_sprites), (x * TILE_SIZE + 8, y * TILE_SIZE + 8), pygame.transform.scale(image, (32, 32)), i % 2 + 1, "red",self.collision_sprites)
 
         for x, y, image in self.map.get_layer_by_name("Player").tiles():
             Player(self.all_sprites, (x * TILE_SIZE, y * TILE_SIZE), image, self.collision_sprites)
         
         for obj in self.map.get_layer_by_name("Coins"):
-            Sprites((self.all_sprites), (obj.x, obj.y), obj.image)
+            Sprites((self.all_sprites), (obj.x, obj.y), pygame.transform.scale(obj.image, (32, 32)))
 
 
         
