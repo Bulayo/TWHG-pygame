@@ -2,14 +2,16 @@ from settings import *
 
 class Player(pygame.sprite.Sprite):
 
-    def __init__(self, groups, pos, image, collision_sprites):
+    def __init__(self, groups, pos, image, wall_collision, ball_collision):
         super().__init__(groups)
         self.image = image
         self.rect = self.image.get_frect(topleft = (pos))
+        self.original_pos = pos
 
         self.direction = pygame.Vector2(1, 0)
         self.speed = 230
-        self.collision_sprites = collision_sprites
+        self.wall_collision = wall_collision
+        self.ball_collision = ball_collision
 
 
     def input(self):
@@ -27,7 +29,7 @@ class Player(pygame.sprite.Sprite):
 
     def collision(self, direction):
 
-        for sprite in self.collision_sprites:
+        for sprite in self.wall_collision:
             if sprite.rect.colliderect(self.rect):
                 if direction == "horizontal":
                     if self.direction.x > 0:
@@ -42,6 +44,12 @@ class Player(pygame.sprite.Sprite):
 
                     if self.direction.y > 0:
                         self.rect.bottom = sprite.rect.top
+
+
+        for sprite in self.ball_collision:
+            if sprite.rect.colliderect(self.rect):
+                    self.rect.x = self.original_pos[0]
+                    self.rect.y = self.original_pos[1]
 
     def update(self, dt):
         self.input()

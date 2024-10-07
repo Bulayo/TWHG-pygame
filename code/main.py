@@ -100,7 +100,7 @@ class Game:
             Ball_Sprite((self.all_sprites, self.ball_sprites), (x * TILE_SIZE + 8, y * TILE_SIZE + 8), pygame.transform.scale(image, (32, 32)), i % 2 + 1, "red",self.collision_sprites)
 
         for x, y, image in self.map.get_layer_by_name("Player").tiles():
-            Player(self.all_sprites, (x * TILE_SIZE, y * TILE_SIZE), image, self.collision_sprites)
+            Player(self.all_sprites, (x * TILE_SIZE, y * TILE_SIZE), image, self.collision_sprites, self.ball_sprites)
         
         for obj in self.map.get_layer_by_name("Coins"):
             Sprites((self.all_sprites), (obj.x, obj.y), pygame.transform.scale(obj.image, (32, 32)))
